@@ -6,9 +6,10 @@ import Linketinder.utils.PessoaJuridica
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.Post
 
 @Controller("/")
-class LinetinderController {
+class LinketinderController {
     List<PessoaFisica> candidatos
     List<PessoaJuridica> empresas
 
@@ -26,6 +27,26 @@ class LinetinderController {
             inicializa()
         }
         return empresas.toString()
+    }
+
+    @Post(uri = "/criaempresa", produces = MediaType.TEXT_PLAIN)
+    String criaEmpresa(String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CNPJ) {
+        PessoaJuridica novaEmpresa = new PessoaJuridica(nome, email, pais, estado, cep, descricao, competencias, CNPJ)
+        if(!candidatos || !empresas) {
+            inicializa()
+        }
+        empresas.add(novaEmpresa)
+        return "sucesso";
+    }
+
+    @Post(uri = "/criacandidato", produces = MediaType.TEXT_PLAIN)
+    String criaCandidato(String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade) {
+        PessoaFisica novoCandidato = new PessoaFisica(nome, email, pais, estado, cep, descricao, competencias, CPF, idade)
+        if(!candidatos || !empresas) {
+            inicializa()
+        }
+        candidatos.add(novoCandidato)
+        return "sucesso";
     }
 
     void inicializa() {
