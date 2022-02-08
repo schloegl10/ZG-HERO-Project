@@ -8,4 +8,13 @@ class Competencia {
         this.descricao = descricao
         this.nivel = nivel
     }
+
+
+    @Override
+    public String toString() {
+        return "Competencia{" +
+                "descricao='" + descricao + '\'' +
+                ", nivel='" + nivel + '\'' +
+                '}';
+    }
 }

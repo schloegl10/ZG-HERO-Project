@@ -7,4 +7,19 @@ class PessoaJuridica extends Pessoa {
         super(nome, email, pais, estado, cep, descricao, competencias)
         this.CNPJ = CNPJ
     }
+
+
+    @Override
+    public String toString() {
+        return "PessoaJuridica{" +
+                "nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", pais='" + pais + '\'' +
+                ", estado='" + estado + '\'' +
+                ", cep='" + cep + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", competencias=" + competencias +
+                ", CNPJ='" + CNPJ + '\'' +
+                '}';
+    }
 }

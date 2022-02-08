@@ -18,4 +18,18 @@ class Pessoa {
         this.descricao = descricao
         this.competencias = competencias
     }
+
+
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", pais='" + pais + '\'' +
+                ", estado='" + estado + '\'' +
+                ", cep='" + cep + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", competencias=" + competencias +
+                '}';
+    }
 }
