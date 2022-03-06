@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const url_1 = require("url");
+import { URLSearchParams } from "url";
 let todos = [];
 let uriCriacao = 'http://localhost:8080/criacandidato?';
 function validaResposta(data) {
@@ -40,7 +38,7 @@ function cria() {
         idade: idade,
         competencias: []
     };
-    var url = uriCriacao + new url_1.URLSearchParams(dados).toString();
+    var url = uriCriacao + new URLSearchParams(dados).toString();
     fetch(url, {
         method: 'POST',
         mode: 'no-cors',

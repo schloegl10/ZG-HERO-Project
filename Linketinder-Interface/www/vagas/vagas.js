@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const url_1 = require("url");
 let todos = [];
 let uriCriacao = 'http://localhost:8080/empresas?';
 function validaResposta(data) {
@@ -22,7 +19,7 @@ function exibeErro(data) {
     document.getElementById('erroDiv').style.display = 'block';
 }
 function carrega() {
-    var url = uriCriacao + new url_1.URLSearchParams(dados).toString();
+    var url = uriCriacao;
     fetch(url, {
         method: 'GET',
         mode: 'no-cors',
@@ -38,3 +35,4 @@ function carrega() {
         .catch(error => console.error("", error));
 }
 carrega();
+export {};

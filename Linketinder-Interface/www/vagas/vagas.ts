@@ -2,7 +2,7 @@ import { URLSearchParams } from "url"
 let todos = [];
 let uriCriacao = 'http://localhost:8080/empresas?'
 
-function validaResposta(data) {
+function validaResposta(data: any) {
   if (data.match('erros: ')) {
     exibeErro(data);
   } else {
@@ -10,19 +10,19 @@ function validaResposta(data) {
   }
 }
 
-function exibe(data) {
+function exibe(data: any) {
   (document.getElementById('resultados')  as HTMLInputElement).innerText = data;
   (document.getElementById('resultado')  as HTMLInputElement).style.display = 'block';
   (document.getElementById('erroDiv')  as HTMLInputElement).style.display = 'none';
 }
 
-function exibeErro(data) {
+function exibeErro(data: any) {
   (document.getElementById('erro')  as HTMLInputElement).innerText = data;
   (document.getElementById('resultados')  as HTMLInputElement).style.display = 'none';
   (document.getElementById('erroDiv')  as HTMLInputElement).style.display = 'block';
 }
 function carrega() {
-  var url = uriCriacao + new URLSearchParams(dados).toString();
+  var url = uriCriacao;
 
   fetch(url, {
     method: 'GET',
