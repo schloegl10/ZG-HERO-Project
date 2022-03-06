@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO-List</title>
+    <link rel="stylesheet" href="candidato.css"/>
+</head>
+<body>
+<div id="conteudoCriaCandidato">
+    <h3>Cria Usuario</h3>
+    <div id="inputsCriacao">
+        <form action="javascript:void(0);" method="POST" onsubmit="cria()">
+            <input name="nome" type="text" id="nome" placeholder="nome">
+            <label for="nome"> nome</label><br>
+            <input name="email" type="text" id="email" placeholder="email">
+            <label for="email"> email</label><br>
+            <input name="pais" type="text" id="pais" placeholder="pais">
+            <label for="pais"> pais</label><br>
+            <input name="estado" type="text" id="estado" placeholder="estado">
+            <label for="estado"> estado</label><br>
+            <input name="cep" type="text" id="cep" placeholder="cep">
+            <label for="cep"> cep</label><br>
+            <input name="descricao" type="text" id="descricao" placeholder="descricao">
+            <label for="descricao"> descricao</label><br>
+            <input name="CPF" type="text" id="CPF" placeholder="CPF">
+            <label for="CPF"> CPF</label><br>
+            <input name="idade" type="text" id="idade" placeholder="idade">
+            <label for="idade"> idade</label><br>
+            <input id="btnCria" type="submit" value="Criar">
+        </form>
+    </div>
+</div>
+<div>
+    <a href="/ZG-HERO-Project/Linketinder-Interface/www/home/home.html">Voltar</a>
+</div>
+<div id="resultado">
+    <h3>Resultado:</h3>
+    <h4 id="resultados"></h4>
+</div>
+<div id="erroDiv">
+    <h4 id="erro"></h4>
+</div>
+<script src="candidato.js" asp-append-version="true"></script>
+</body>
+</html>
