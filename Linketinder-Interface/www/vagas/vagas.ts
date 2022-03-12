@@ -1,6 +1,6 @@
 import { URLSearchParams } from "url"
 let todos = [];
-let uriCriacao = 'http://localhost:8080/empresas?'
+let uri = 'http://localhost:8080/empresas'
 
 function validaResposta(data: any) {
   if (data.match('erros: ')) {
@@ -22,7 +22,7 @@ function exibeErro(data: any) {
   (document.getElementById('erroDiv')  as HTMLInputElement).style.display = 'block';
 }
 function carrega() {
-  var url = uriCriacao;
+  var url = uri;
 
   fetch(url, {
     method: 'GET',

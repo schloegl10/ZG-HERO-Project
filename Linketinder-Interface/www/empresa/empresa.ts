@@ -36,9 +36,9 @@ function cria() {
         estado: estado,
         cep: cep,
         CNPJ: CNPJ,
-        competencias: []
+        competencias: ''
     };
-
+    validaInformacoes(dados);
 
   var url = uriCriacao + new URLSearchParams(dados).toString();
 
@@ -55,4 +55,45 @@ function cria() {
       validaResposta(data);
     })
     .catch(error => console.error("", error));
+}
+
+function validaInformacoes(dados) {
+ let dados = {
+        nome: nome,
+        descricao: descricao,
+        email: email,
+        estado: estado,
+        cep: cep,
+        CNPJ: CNPJ,
+        competencias: ''
+    };
+    const regexNomeEstado = /^[\w\s]+$/;
+    const validaNome = dados.nome.match(regexNomeEstado);
+    const regexEmail = /^.*@.*/;
+    const validaEmail = dados.email.match(regexEmail);
+    const validaEstado = dados.estado.match(regexNomeEstado);
+    const regexCep = /\d{5}-\d{3}/;
+    const validaCep = dados.cep.match(regexCep);
+    const regexCNPJ = /\d{2}\.\d{3}.\d{3}\/\d{4}-\d{2}/;
+    const validaCNPJ = dados.cpf.match(regexCPF);
+    if(validaNome == null) {
+        exibeErro("Nome está em formato incorreto ou vazio");
+        return false
+    }
+   if(validaEmail == null) {
+        exibeErro("Email está em formato incorreto ou vazio");
+        return false
+   }
+   if(validaEstado == null) {
+        exibeErro("Estado está em formato incorreto ou vazio");
+        return false
+   }
+   if(validaCep == null) {
+        exibeErro("CEP está em formato incorreto ou vazio");
+        return false
+   }
+    if(validaCNPJ == null) {
+        exibeErro("CNPJ está em formato incorreto ou vazio");
+        return false
+    }
 }

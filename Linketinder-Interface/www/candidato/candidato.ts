@@ -38,9 +38,11 @@ function cria() {
         cep: cep,
         CPF: CPF,
         idade: idade,
-        competencias: []
+        competencias: ''
     };
-
+    if(!validaInformacoes(dados)) {
+        return;
+    }
 
   var url = uriCriacao + new URLSearchParams(dados).toString();
 
@@ -57,4 +59,42 @@ function cria() {
       validaResposta(data);
     })
     .catch(error => console.error("", error));
+}
+
+function validaInformacoes(dados) {
+    const regexNomeEstado = /^[\w\s]+$/;
+    const validaNome = dados.nome.match(regexNomeEstado);
+    const regexEmail = /^.*@.*/;
+    const validaEmail = dados.email.match(regexEmail);
+    const validaEstado = dados.estado.match(regexNomeEstado);
+    const regexCep = /\d{5}-\d{3}/;
+    const validaCep = dados.cep.match(regexCep);
+    const regexCPF = /\d{3}\.\d{3}.\d{3}-\d{2}/;
+    const validaCPF = dados.cpf.match(regexCPF);
+    const regexIdade = /^\d+$/;
+    const validaIdade = dados.idade.match(regexIdade);
+    if(validaNome == null) {
+        exibeErro("Nome está em formato incorreto ou vazio");
+        return false
+    }
+   if(validaEmail == null) {
+        exibeErro("Email está em formato incorreto ou vazio");
+        return false
+   }
+   if(validaEstado == null) {
+        exibeErro("Estado está em formato incorreto ou vazio");
+        return false
+   }
+   if(validaCep == null) {
+        exibeErro("CEP está em formato incorreto ou vazio");
+        return false
+   }
+    if(validaCPF == null) {
+        exibeErro("CPF está em formato incorreto ou vazio");
+        return false
+    }
+    if(validaIdade == null) {
+        exibeErro("Idade está em formato incorreto ou vazio");
+        return false
+    }
 }

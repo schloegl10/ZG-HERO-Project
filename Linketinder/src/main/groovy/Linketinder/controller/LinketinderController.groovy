@@ -12,7 +12,7 @@ import io.micronaut.http.annotation.Post
 class LinketinderController {
     List<PessoaFisica> candidatos
     List<PessoaJuridica> empresas
-    //criar método que retorna sem dados pessoais
+    //TODO criar método que retorna sem dados pessoais
     @Get(uri = "/candidatos", produces = MediaType.TEXT_PLAIN)
     String listaCandidatos() {
         if(!candidatos || !empresas) {
@@ -20,7 +20,7 @@ class LinketinderController {
         }
         return candidatos.toString()
     }
-//criar método que retorna sem dados pessoais
+    //TODO criar método que retorna sem dados pessoais
     @Get(uri = "/empresas", produces = MediaType.TEXT_PLAIN)
     String listaEmpresas() {
         if(!candidatos || !empresas) {
