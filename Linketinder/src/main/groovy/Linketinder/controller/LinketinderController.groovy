@@ -30,8 +30,8 @@ class LinketinderController {
     }
 
     @Post(uri = "/criaempresa", produces = MediaType.TEXT_PLAIN)
-    String criaEmpresa(String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CNPJ) {
-        PessoaJuridica novaEmpresa = new PessoaJuridica(nome, email, pais, estado, cep, descricao, competencias, CNPJ)
+    String criaEmpresa(int id, String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CNPJ) {
+        PessoaJuridica novaEmpresa = new PessoaJuridica(id, nome, email, pais, estado, cep, descricao, competencias, CNPJ)
         if(!candidatos || !empresas) {
             inicializa()
         }
@@ -40,8 +40,8 @@ class LinketinderController {
     }
 
     @Post(uri = "/criacandidato", produces = MediaType.TEXT_PLAIN)
-    String criaCandidato(String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade) {
-        PessoaFisica novoCandidato = new PessoaFisica(nome, email, pais, estado, cep, descricao, competencias, CPF, idade)
+    String criaCandidato(int id, String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade) {
+        PessoaFisica novoCandidato = new PessoaFisica(id, nome, email, pais, estado, cep, descricao, competencias, CPF, idade)
         if(!candidatos || !empresas) {
             inicializa()
         }

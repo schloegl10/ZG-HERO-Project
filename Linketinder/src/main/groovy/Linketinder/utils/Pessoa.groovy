@@ -1,6 +1,7 @@
 package Linketinder.utils
 
 class Pessoa {
+    int id
     String nome
     String email
     String pais
@@ -9,7 +10,8 @@ class Pessoa {
     String descricao
     List<Competencia> competencias
 
-    Pessoa(String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias) {
+    Pessoa(int id, String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias) {
+        this.id = id
         this.nome = nome
         this.email = email
         this.pais = pais
@@ -21,7 +23,7 @@ class Pessoa {
 
 
     @Override
-    public String toString() {
+    String toString() {
         return "Pessoa{" +
                 "nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
