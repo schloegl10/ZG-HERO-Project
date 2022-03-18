@@ -30,6 +30,16 @@ class BDService {
         return results
     }
 
+    List<Vaga> obtemVagas() {
+        List<GroovyRowResult> results = sql.rows(SqlUtils.SELECT_VAGA)
+        return results
+    }
+
+    List<Competencia> obtemCompetencias() {
+        List<GroovyRowResult> results = sql.rows(SqlUtils.SELECT_COMPETENCIA)
+        return results
+    }
+
     boolean criaPessoaFisica(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
         String insert = SqlUtils.INSERT_PESSOA_FISICA + "('${nome}', '${sobrenome}', '${email}', '${senha}', '${pais}', '${estado}', '${cep}', '${descricao}', '${CPF}', '${formacao}', '${idade}')"
         criaCompetencias(competencias)
@@ -79,10 +89,10 @@ class BDService {
         return sql.execute(insert)
     }
 
-    boolean criaVagas(List<Competencia> competencias) {
+    boolean criaVagas(List<Vaga> vagas) {
         List<Boolean> resultados = []
-        for(Competencia competencia in competencias) {
-            resultados.add(criaCompetencia(competencia))
+        for(Vaga vaga in vagas) {
+            resultados.add(criaCompetencia(vaga))
         }
         if(resultados.find(false)) {
             return false

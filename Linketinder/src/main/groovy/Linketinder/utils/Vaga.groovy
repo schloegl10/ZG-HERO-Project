@@ -1,12 +1,12 @@
 package Linketinder.utils
 
-class Competencia {
+class Vaga {
     String descricao
     String nome
     String estado
     String cidade
     List<Competencia> competencias
-    Competencia(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
+    Vaga(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
         this.descricao = descricao
         this.nome = nome
         this.estado = estado
