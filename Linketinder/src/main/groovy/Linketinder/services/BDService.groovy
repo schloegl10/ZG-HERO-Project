@@ -13,7 +13,7 @@ class BDService {
     final String user = 'postgres'
     final String password = 'Schloegl@20'
 
-
+//TODO PROJETO separar em mais services divididos por pessoa fisica, juridica, competencia e vaga
     Sql sql
 
     LinketinderService() {
@@ -124,5 +124,28 @@ class BDService {
         List<GroovyRowResult> vagaGRR = sql.rows(selectVaga)
         String insert = SqlUtils.INSERT_RELACAO_COMPETENCIA_VAGA + "(${competenciaGRR.id}, ${vagaGRR.id})"
         return sql.execute(insert)
+    }
+
+    boolean atualizaPessoaFisica(String emailOriginal, String senhaOriginal, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
+        String update = SqlUtils.UPDATE_PESSOA_FISICA + "nome = '${nome}', AND email = '${email}', AND senha = '${senha}',AND pais = '${pais}', AND estado = '${estado}', AND cep = '${cep}', AND descricao = '${descricao}', AND cpf = '${CPF}', AND sobrenome = '${sobrenome}', AND idade = ${idade} AND formacao = '${formacao}' WHERE email = '${emailOriginal}' AND senha = '${senhaOriginal}'"
+        //TODO PROJETO criar update das relações com competência
+        return sql.execute(update)
+    }
+
+    boolean atualizaPessoaJuridica(String emailOriginal, String senhaOriginal, String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vagas, String CNPJ) {
+        String update = SqlUtils.UPDATE_PESSOA_JURIDICA + "nome = '${nome}', AND email = '${email}', AND senha = '${senha}',AND pais = '${pais}', AND estado = '${estado}', AND cep = '${cep}', AND descricao = '${descricao}', AND cnpj = '${CNPJ}' WHERE email = '${emailOriginal}' AND senha = '${senhaOriginal}'"
+        //TODO PROJETO criar update das relações com vagas
+        return sql.execute(update)
+    }
+
+    boolean atualizaVaga(Vaga vaga, Vaga vagaOriginal) {
+        String update = SqlUtils.UPDATE_VAGA + "nome = '${vaga.nome}', descricao = '${vaga.descricao}', estado = '${vaga.estado}', cidade = '${vaga.cidade}' WHERE nome = '${vagaOriginal.nome}' descricao = '${vagaOriginal.descricao}' estado = '${vagaOriginal.estado}' cidade = '${vagaOriginal.cidade}'"
+        //TODO PROJETO criar update das relações com competência
+        return sql.execute(update)
+    }
+
+    boolean atualizaCompetencia(Competencia competencia, Competencia competenciaOriginal) {
+        String update = SqlUtils.INSERT_COMPETENCIA + "descricao = '${competencia.descricao}', nivel = '${competencia.nivel}' WHERE descricao = '${competenciaOriginal.descricao}' AND nivel = '${competenciaOriginal.nivel}'"
+        return sql.execute(update)
     }
 }
