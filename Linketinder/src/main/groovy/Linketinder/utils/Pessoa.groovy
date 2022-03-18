@@ -4,21 +4,22 @@ class Pessoa {
     int id
     String nome
     String email
+    String senha
     String pais
     String estado
     String cep
     String descricao
-    List<Competencia> competencias
 
-    Pessoa(int id, String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias) {
+
+    Pessoa(int id, String nome, String email, String senha, String pais, String estado, String cep, String descricao) {
         this.id = id
         this.nome = nome
         this.email = email
+        this.senha = senha
         this.pais = pais
         this.estado = estado
         this.cep = cep
         this.descricao = descricao
-        this.competencias = competencias
     }
 
 

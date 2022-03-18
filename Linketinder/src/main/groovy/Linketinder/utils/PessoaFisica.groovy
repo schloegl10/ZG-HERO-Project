@@ -2,12 +2,18 @@ package Linketinder.utils
 
 class PessoaFisica extends Pessoa {
     String CPF
+    String sobrenome
+    String formacao
     int idade
+    List<Competencia> competencias
 
-    PessoaFisica(int id, String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade) {
-        super(id, nome, email, pais, estado, cep, descricao, competencias)
+    PessoaFisica(int id, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
+        super(id, nome, email, senha, pais, estado, cep, descricao, competencias)
+        this.sobrenome = sobrenome
         this.CPF = CPF
+        this.formacao = formacao
         this.idade = idade
+        this.competencias = competencias
     }
 
     @Override

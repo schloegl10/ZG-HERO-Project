@@ -16,7 +16,8 @@ CREATE DATABASE linketinder
     descricao text,
     cpf text,
 	formacao text,
-    idade int
+    idade int,
+    UNIQUE (email, senha)
     );
 
     CREATE TABLE IF NOT EXISTS pessoajuridica (
@@ -28,20 +29,22 @@ CREATE DATABASE linketinder
     estado text,
     cep text,
     descricao text,
-    cnpj text
+    cnpj text,
+    UNIQUE (email, senha)
     );
 
     CREATE TABLE IF NOT EXISTS competencia (
 	id serial PRIMARY KEY,
     descricao text,
-    nivel text
+    nivel text,
+    UNIQUE (descricao, nivel)
     );
 
 	CREATE TABLE IF NOT EXISTS relacaocompetenciapessoa (
 	id serial PRIMARY KEY,
 	competenciaid bigint REFERENCES competencia (id),
 	pessoafisicaid bigint REFERENCES pessoafisica (id),
-    pessoajuridicaid bigint REFERENCES pessoajuridica (id)
+    UNIQUE (competenciaid, pessoafisicaid)
 	);
 
 	CREATE TABLE IF NOT EXISTS vaga (
@@ -50,13 +53,15 @@ CREATE DATABASE linketinder
 	descrição text,
 	estado text,
 	cidade text,
-	 pessoajuridicaid bigint REFERENCES pessoajuridica (id)
+	pessoajuridicaid bigint REFERENCES pessoajuridica (id),
+	UNIQUE (nome, descrição, estado, cidade)
 	);
 
 	CREATE TABLE IF NOT EXISTS relacaocompetenciavaga (
 	id serial PRIMARY KEY,
 	competenciaid bigint REFERENCES competencia (id),
-	vagaid bigint REFERENCES vaga (id)
+	vagaid bigint REFERENCES vaga (id),
+    UNIQUE (competenciaid, vagaid)
 	);
 
 	CREATE TABLE IF NOT EXISTS curtidas (
