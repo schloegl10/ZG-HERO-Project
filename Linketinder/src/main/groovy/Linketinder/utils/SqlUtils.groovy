@@ -16,5 +16,9 @@ class SqlUtils {
     public static String UPDATE_PESSOA_JURIDICA = 'UPDATE pessoajuridica SET '
     public static String UPDATE_COMPETENCIA = 'UPDATE vaga SET '
     public static String UPDATE_VAGA = 'UPDATE competencia SET '
+    public static String DELETE_PESSOA_FISICA = 'DELETE pessoafisica '
+    public static String DELETE_PESSOA_JURIDICA = 'DELETE pessoajuridica '
+    public static String DELETE_COMPETENCIA = 'DELETE vaga '
+    public static String DELETE_VAGA = 'DELETE competencia '
 
 }

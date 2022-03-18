@@ -145,7 +145,27 @@ class BDService {
     }
 
     boolean atualizaCompetencia(Competencia competencia, Competencia competenciaOriginal) {
-        String update = SqlUtils.INSERT_COMPETENCIA + "descricao = '${competencia.descricao}', nivel = '${competencia.nivel}' WHERE descricao = '${competenciaOriginal.descricao}' AND nivel = '${competenciaOriginal.nivel}'"
+        String update = SqlUtils.UPDATE_COMPETENCIA + "descricao = '${competencia.descricao}', nivel = '${competencia.nivel}' WHERE descricao = '${competenciaOriginal.descricao}' AND nivel = '${competenciaOriginal.nivel}'"
+        return sql.execute(update)
+    }
+
+    boolean deletePessoaFisica(String emailOriginal, String senhaOriginal, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
+        String update = SqlUtils.DELETE_PESSOA_FISICA + "WHERE email = '${emailOriginal}' AND senha = '${senhaOriginal}'"
+        return sql.execute(update)
+    }
+
+    boolean deletePessoaJuridica(String emailOriginal, String senhaOriginal, String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vagas, String CNPJ) {
+        String update = SqlUtils.DELETE_PESSOA_JURIDICA + "WHERE email = '${emailOriginal}' AND senha = '${senhaOriginal}'"
+        return sql.execute(update)
+    }
+
+    boolean deleteVaga(Vaga vaga) {
+        String update = SqlUtils.DELETE_VAGA + "WHERE nome = '${vagaOriginal.nome}' descricao = '${vagaOriginal.descricao}' estado = '${vagaOriginal.estado}' cidade = '${vagaOriginal.cidade}'"
+        return sql.execute(update)
+    }
+
+    boolean deleteCompetencia(Competencia competencia) {
+        String update = SqlUtils.DELETE_COMPETENCIA + "WHERE descricao = '${competenciaOriginal.descricao}' AND nivel = '${competenciaOriginal.nivel}'"
         return sql.execute(update)
     }
 }

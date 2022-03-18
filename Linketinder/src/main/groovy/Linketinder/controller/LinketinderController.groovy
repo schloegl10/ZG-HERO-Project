@@ -67,16 +67,38 @@ class LinketinderController {
     String atualizaVaga(String descricaoOriginal, String nomeOriginal, String estadoOriginal, String cidadeOriginal, List<Competencia> competenciasOriginal, String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
         Vaga vaga = new Vaga(descricao, nome, estado, cidade, competencias)
         Vaga vagaOriginal = new Vaga(descricaoOriginal, nomeOriginal, estadoOriginal, cidadeOriginal, competenciasOriginal)
-        return BDService.atualizaVaga(vaga, vagaOriginal)
+        return BDService.atualizaVaga(vaga, vagaOriginal).toString()
     }
 
     @Post(uri = "/atualizacompetencia", produces = MediaType.TEXT_PLAIN)
-    String atualizaCompetencia(String descricao, String nivel) {
+    String atualizaCompetencia(String descricaoOriginal, String nivelOriginal, String descricao, String nivel) {
         Competencia competencia = new Competencia(descricao, nivel)
-        return BDService.atualizaCompetencia(competencia)
+        Competencia competenciaOriginal = new Competencia(descricaoOriginal, nivelOriginal)
+        return BDService.atualizaCompetencia(competencia, competenciaOriginal).toString()
     }
 
-    //TODO PROJETO criar delete de candidato, empresa, vaga e competencia
+    @Post(uri = "/deleteempresa", produces = MediaType.TEXT_PLAIN)
+    String deleteEmpresa(String emailOriginal, String senhaOriginal) {
+        return BDService.deletePessoaJuridica(emailOriginal, senhaOriginal).toString()
+    }
+
+    @Post(uri = "/deletecandidato", produces = MediaType.TEXT_PLAIN)
+    String deleteCandidato(String emailOriginal, String senhaOriginal) {
+        return BDService.deletePessoaFisica(emailOriginal, senhaOriginal).toString()
+    }
+
+    @Post(uri = "/deletevaga", produces = MediaType.TEXT_PLAIN)
+    String deleteVaga(String descricao, String nome, String estado, String cidade) {
+        Vaga vaga = new Vaga(descricao, nome, estado, cidade, [])
+        return BDService.deleteVaga(vaga).toString()
+    }
+
+    @Post(uri = "/deletecompetencia", produces = MediaType.TEXT_PLAIN)
+    String deleteCompetencia(String descricao, String nivel) {
+        Competencia competencia = new Competencia(descricao, nivel)
+        return BDService.deleteCompetencia(competencia).toString()
+    }
+
     //TODO PROJETO criar select especifico de candidato, empresa, vaga e competencia
     //TODO PROJETO criar método que retorna sem dados pessoais
     //TODO PROJETO separar em mais controler divididos por pessoa fisica, juridica, competencia e vaga
