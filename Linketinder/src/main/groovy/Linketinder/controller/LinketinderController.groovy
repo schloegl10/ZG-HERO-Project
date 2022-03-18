@@ -11,12 +11,12 @@ class LinketinderController {
 
     BDService BDService = new BDService()
 
-    //TODO criar método que retorna sem dados pessoais
+    //TODO PROJETO criar método que retorna sem dados pessoais
     @Get(uri = "/candidatos", produces = MediaType.TEXT_PLAIN)
     String listaCandidatos() {
        return linketinderService.obtemPessoasFisicas().toString()
     }
-    //TODO criar método que retorna sem dados pessoais
+    //TODO PROJETO criar método que retorna sem dados pessoais
     @Get(uri = "/empresas", produces = MediaType.TEXT_PLAIN)
     String obtemPessoasJuridicas() {
         return linketinderService.obtemPessoasFisicas()
@@ -34,4 +34,8 @@ class LinketinderController {
         return "sucesso";
     }
 
+    //TODO PROJETO criar update de candidato, empresa, vaga e competencia
+    //TODO PROJETO criar delete de candidato, empresa, vaga e competencia
+    //TODO PROJETO criar select especifico de candidato, empresa, vaga e competencia
+    //TODO PROJETO criar create de vaga e competencia nessa parte
 }
