@@ -7,11 +7,13 @@ import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
+import jakarta.inject.Inject
 
 @Controller("/vaga")
 class VagaController {
 
-    VagaService VagaService = new VagaService()
+    @Inject
+    VagaService VagaService
 
     @Get(uri = "/listall", produces = MediaType.TEXT_PLAIN)
     String obtemVagas() {

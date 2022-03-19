@@ -20,6 +20,7 @@ class PessoaFisicaService {
         return pessoaFisicaRepository.save(pessoaFisica)
     }
 
+    //TODO PROJETO rever isso
     boolean criaRelacoesCompetenciaPessoa(List<Competencia> competencias, String email, String senha) {
         List<Boolean> resultados = []
         for (Competencia competencia in competencias) {
@@ -39,7 +40,7 @@ class PessoaFisicaService {
         String insert = SqlUtils.INSERT_RELACAO_COMPETENCIA_PESSOA + "(${competenciaGRR.id}, ${pessoa.id})"
         return sql.execute(insert)
     }
-
+//TODO PROJETO criar update das relações
     boolean atualizaPessoaFisica(String emailOriginal, String senhaOriginal, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
         PessoaFisica pessoaFisica = pessoaFisicaRepository.findByEmailAndSenha(emailOriginal, senhaOriginal)
         nome ? pessoaFisica.nome = nome : ''

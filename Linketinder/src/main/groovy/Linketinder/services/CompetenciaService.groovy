@@ -11,33 +11,26 @@ class CompetenciaService {
     @Inject CompetenciaRepository competenciaRepository
 
     List<Competencia> obtemCompetencias() {
-        List<GroovyRowResult> results = sql.rows(SqlUtils.SELECT_COMPETENCIA)
-        return results
+        return competenciaRepository.findAll()
     }
 
     boolean criaCompetencias(List<Competencia> competencias) {
-        List<Boolean> resultados = []
-        for(Competencia competencia in competencias) {
-            resultados.add(criaCompetencia(competencia))
-        }
-        if(resultados.find(false)) {
-            return false
-        }
-        return true
+        return competenciaRepository.saveAll(competencias)
     }
 
     boolean criaCompetencia(Competencia competencia) {
-        String insert = SqlUtils.INSERT_COMPETENCIA + "('${competencia.descricao}', '${competencia.nivel}')"
-        return sql.execute(insert)
+        return competenciaRepository.save(competencia)
     }
 
     boolean atualizaCompetencia(Competencia competencia, Competencia competenciaOriginal) {
-        String update = SqlUtils.UPDATE_COMPETENCIA + "descricao = '${competencia.descricao}', nivel = '${competencia.nivel}' WHERE descricao = '${competenciaOriginal.descricao}' AND nivel = '${competenciaOriginal.nivel}'"
-        return sql.execute(update)
+        Competencia competenciaOriginalBanco = competenciaRepository.findByDescricaoAndNivel(competenciaOriginal.descricao, competenciaOriginal.nivel)
+        competenciaOriginalBanco.descricao = competencia.descricao
+        competenciaOriginalBanco.nivel = competencia.nivel
+        return competenciaRepository.save(competenciaOriginalBanco)
     }
 
     boolean deleteCompetencia(Competencia competencia) {
-        String update = SqlUtils.DELETE_COMPETENCIA + "WHERE descricao = '${competenciaOriginal.descricao}' AND nivel = '${competenciaOriginal.nivel}'"
-        return sql.execute(update)
+        Competencia competenciaBanco = competenciaRepository.findByDescricaoAndNivel(competencia.descricao, competencia.nivel)
+        return competenciaRepository.deleteById(competenciaBanco.id)
     }
 }

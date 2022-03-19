@@ -1,36 +1,41 @@
 package Linketinder.services
 
-
+import Linketinder.repository.PessoaJuridicaRepository
+import Linketinder.utils.PessoaJuridica
 import Linketinder.utils.PessoaJuridica
 import Linketinder.utils.SqlUtils
 import Linketinder.utils.Vaga
-import groovy.sql.GroovyRowResult
 import jakarta.inject.Inject
 
 class PessoaJuridicaService {
 
     //TODO PROJECT implementar repository
-    @Inject PessoaJuridica pessoaJuridicaRepository
+    @Inject PessoaJuridicaRepository pessoaJuridicaRepository
 
     List<PessoaJuridica> obtemPessoasJuridicas() {
-        List<GroovyRowResult> results = sql.rows(SqlUtils.SELECT_PESSOA_JURIDICA)
-        return results
+        return pessoaJuridicaRepository.findAll() as List<PessoaJuridica>
     }
 
-    boolean criaPessoaJuridica(String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vagas, String CNPJ) {
-        String insert = SqlUtils.INSERT_PESSOA_JURIDICA + "('${nome}', '${email}', '${senha}', '${pais}', '${estado}', '${cep}', '${descricao}', '${CNPJ}')"
-        criaVagas(vagas)
-        return sql.execute(insert)
+    boolean criaPessoaJuridica(PessoaJuridica pessoaJuridica) {
+        return pessoaJuridicaRepository.save(pessoaJuridica)
     }
-
+//TODO PROJETO criar update das relações com vagas
     boolean atualizaPessoaJuridica(String emailOriginal, String senhaOriginal, String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vagas, String CNPJ) {
-        String update = SqlUtils.UPDATE_PESSOA_JURIDICA + "nome = '${nome}', AND email = '${email}', AND senha = '${senha}',AND pais = '${pais}', AND estado = '${estado}', AND cep = '${cep}', AND descricao = '${descricao}', AND cnpj = '${CNPJ}' WHERE email = '${emailOriginal}' AND senha = '${senhaOriginal}'"
-        //TODO PROJETO criar update das relações com vagas
-        return sql.execute(update)
+        PessoaJuridica pessoaJuridica = pessoaJuridicaRepository.findByEmailAndSenha(emailOriginal, senhaOriginal)
+        nome ? pessoaJuridica.nome = nome : ''
+        email ? pessoaJuridica.email = email : ''
+        senha ? pessoaJuridica.senha = senha : ''
+        pais ? pessoaJuridica.pais = pais : ''
+        estado ? pessoaJuridica.estado = estado : ''
+        cep ? pessoaJuridica.cep = cep : ''
+        descricao ? pessoaJuridica.descricao = descricao : ''
+        CNPJ ? pessoaJuridica.CNPJ = CNPJ : ''
+        vagas ? pessoaJuridica.vagas = vagas : ''
+        return pessoaJuridicaRepository.save(pessoaJuridica)
     }
 
-    boolean deletePessoaJuridica(String emailOriginal, String senhaOriginal, String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vagas, String CNPJ) {
-        String update = SqlUtils.DELETE_PESSOA_JURIDICA + "WHERE email = '${emailOriginal}' AND senha = '${senhaOriginal}'"
-        return sql.execute(update)
+    boolean deletePessoaJuridica(String emailOriginal, String senhaOriginal) {
+        PessoaJuridica pessoaJuridica = pessoaJuridicaRepository.findByEmailAndSenha(emailOriginal, senhaOriginal)
+        return pessoaJuridicaRepository.deleteById(pessoaJuridica.id)
     }
 }

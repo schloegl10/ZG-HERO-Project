@@ -13,27 +13,18 @@ class VagaService {
 
 
     List<Vaga> obtemVagas() {
-        List<GroovyRowResult> results = sql.rows(SqlUtils.SELECT_VAGA)
-        return results
+        return vagaRepository.findAll()
     }
 
     boolean criaVagas(List<Vaga> vagas) {
-        List<Boolean> resultados = []
-        for(Vaga vaga in vagas) {
-            resultados.add(criaCompetencia(vaga))
-        }
-        if(resultados.find(false)) {
-            return false
-        }
-        return true
+        return vagaRepository.saveAll(vagas)
     }
 
     boolean criaVaga(Vaga vaga) {
-        String insert = SqlUtils.INSERT_VAGA + "('${vaga.nome}', '${vaga.descricao}', '${vaga.estado}', '${vaga.cidade}', '${vaga.pessoajuridicaid}')"
-        criaRelacoesVagaCompetencia(vaga)
-        return sql.execute(insert)
+        return vagaRepository.save(vaga)
     }
 
+    //TODO PROJETO Rever isso
     boolean criaRelacoesVagaCompetencia(Vaga vagas) {
         List<Boolean> resultados = []
         for(Competencia competencia in vagas.competencias) {
@@ -54,14 +45,18 @@ class VagaService {
         return sql.execute(insert)
     }
 
+    //TODO PROJETO criar update das relações com competência
     boolean atualizaVaga(Vaga vaga, Vaga vagaOriginal) {
-        String update = SqlUtils.UPDATE_VAGA + "nome = '${vaga.nome}', descricao = '${vaga.descricao}', estado = '${vaga.estado}', cidade = '${vaga.cidade}' WHERE nome = '${vagaOriginal.nome}' descricao = '${vagaOriginal.descricao}' estado = '${vagaOriginal.estado}' cidade = '${vagaOriginal.cidade}'"
-        //TODO PROJETO criar update das relações com competência
-        return sql.execute(update)
+        Vaga vagaOriginalBanco = vagaRepository.findByDescricaoAndNomeAndEstadoAndCidade(vagaOriginal.descricao, vagaOriginal.nome, vagaOriginal.estado, vagaOriginal.cidade)
+        vagaOriginalBanco.descricao = vaga.descricao
+        vagaOriginalBanco.nome = vaga.nome
+        vagaOriginalBanco.estado = vaga.estado
+        vagaOriginalBanco.cidade = vaga.cidade
+        return vagaRepository.save(vagaOriginalBanco)
     }
 
     boolean deleteVaga(Vaga vaga) {
-        String update = SqlUtils.DELETE_VAGA + "WHERE nome = '${vagaOriginal.nome}' descricao = '${vagaOriginal.descricao}' estado = '${vagaOriginal.estado}' cidade = '${vagaOriginal.cidade}'"
-        return sql.execute(update)
+        Vaga vagaBanco = vagaRepository.findByDescricaoAndNomeAndEstadoAndCidade(vaga.descricao, vaga.nome, vaga.estado, vaga.cidade)
+        return vagaRepository.deleteById(vagaBanco.id)
     }
 }
