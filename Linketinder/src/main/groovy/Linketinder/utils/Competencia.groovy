@@ -1,6 +1,14 @@
 package Linketinder.utils
 
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+
+@Entity
 class Competencia {
+    @Id
+    @GeneratedValue
+    Long id
     String descricao
     String nivel
 
@@ -9,6 +17,7 @@ class Competencia {
         this.nivel = nivel
     }
 
+    Competencia(){}
 
     @Override
     public String toString() {

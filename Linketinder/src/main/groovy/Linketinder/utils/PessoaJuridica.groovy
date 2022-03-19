@@ -1,15 +1,24 @@
 package Linketinder.utils
 
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+
+@Entity
 class PessoaJuridica extends Pessoa {
+    @Id
+    @GeneratedValue
+    Long id
     String CNPJ
     List<Vaga> vagas
 
-    PessoaJuridica(int id, String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vagas, String CNPJ) {
-        super(id, nome, email, senha, pais, estado, cep, descricao)
+    PessoaJuridica(String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vagas, String CNPJ) {
+        super(nome, email, senha, pais, estado, cep, descricao)
         this.CNPJ = CNPJ
         this.vagas = vagas
     }
 
+    PessoaJuridica(){}
 
     @Override
     public String toString() {

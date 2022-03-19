@@ -1,7 +1,6 @@
 package Linketinder.utils
 
 class Pessoa {
-    int id
     String nome
     String email
     String senha
@@ -11,8 +10,7 @@ class Pessoa {
     String descricao
 
 
-    Pessoa(int id, String nome, String email, String senha, String pais, String estado, String cep, String descricao) {
-        this.id = id
+    Pessoa(String nome, String email, String senha, String pais, String estado, String cep, String descricao) {
         this.nome = nome
         this.email = email
         this.senha = senha
@@ -22,6 +20,7 @@ class Pessoa {
         this.descricao = descricao
     }
 
+    Pessoa(){}
 
     @Override
     String toString() {

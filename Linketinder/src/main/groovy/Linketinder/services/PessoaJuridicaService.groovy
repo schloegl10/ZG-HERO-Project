@@ -1,13 +1,17 @@
 package Linketinder.services
 
-
+import Linketinder.utils.Competencia
 import Linketinder.utils.PessoaFisica
+import Linketinder.utils.PessoaJuridica
 import Linketinder.utils.SqlUtils
+import Linketinder.utils.Vaga
 import groovy.sql.GroovyRowResult
 import groovy.sql.Sql
+import jakarta.inject.Inject
 
-class BDService {
+class PessoaJuridicaService {
 
+    @Inject PessoaJuridica pessoaJuridicaRepository
 
     final String url = 'jdbc:postgresql://localhost:5432/linketinder'
     final String user = 'postgres'

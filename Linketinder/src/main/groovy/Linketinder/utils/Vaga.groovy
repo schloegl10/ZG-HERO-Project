@@ -1,6 +1,14 @@
 package Linketinder.utils
 
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+
+@Entity
 class Vaga {
+    @Id
+    @GeneratedValue
+    Long id
     String descricao
     String nome
     String estado
@@ -13,6 +21,8 @@ class Vaga {
         this.cidade = cidade
         this.competencias = competencias
     }
+
+    Vaga(){}
 
 
     @Override
