@@ -7,7 +7,7 @@ import groovy.sql.GroovyRowResult
 import jakarta.inject.Inject
 
 class CompetenciaService {
-
+//TODO PROJECT implementar repository
     @Inject CompetenciaRepository competenciaRepository
 
     List<Competencia> obtemCompetencias() {

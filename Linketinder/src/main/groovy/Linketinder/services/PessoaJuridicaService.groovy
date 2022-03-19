@@ -9,6 +9,7 @@ import jakarta.inject.Inject
 
 class PessoaJuridicaService {
 
+    //TODO PROJECT implementar repository
     @Inject PessoaJuridica pessoaJuridicaRepository
 
     List<PessoaJuridica> obtemPessoasJuridicas() {

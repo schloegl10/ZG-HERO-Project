@@ -8,7 +8,7 @@ import groovy.sql.GroovyRowResult
 import jakarta.inject.Inject
 
 class VagaService {
-
+//TODO PROJECT implementar repository
     @Inject VagaRepository vagaRepository
 
 

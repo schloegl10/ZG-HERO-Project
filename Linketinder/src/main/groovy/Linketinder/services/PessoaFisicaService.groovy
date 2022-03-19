@@ -8,27 +8,24 @@ import groovy.sql.GroovyRowResult
 import jakarta.inject.Inject
 
 class PessoaFisicaService {
-
-    @Inject PessoaFisicaRepository pessoaFisicaRepository
+//TODO PROJECT implementar repository
+    @Inject
+    PessoaFisicaRepository pessoaFisicaRepository
 
     List<PessoaFisica> obtemPessoasFisicas() {
-        List<GroovyRowResult> results = sql.rows(SqlUtils.SELECT_PESSOA_FISICA)
-        return results
+        return pessoaFisicaRepository.findAll()
     }
 
-    boolean criaPessoaFisica(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
-        String insert = SqlUtils.INSERT_PESSOA_FISICA + "('${nome}', '${sobrenome}', '${email}', '${senha}', '${pais}', '${estado}', '${cep}', '${descricao}', '${CPF}', '${formacao}', '${idade}')"
-        criaCompetencias(competencias)
-        criaRelacoesCompetenciaPessoa(competencias, email, senha)
-        return sql.execute(insert)
+    boolean criaPessoaFisica(PessoaFisica pessoaFisica) {
+        return pessoaFisicaRepository.save(pessoaFisica)
     }
 
     boolean criaRelacoesCompetenciaPessoa(List<Competencia> competencias, String email, String senha) {
         List<Boolean> resultados = []
-        for(Competencia competencia in competencias) {
+        for (Competencia competencia in competencias) {
             resultados.add(criaRelacaoCompetenciaPessoa(competencia, email, senha))
         }
-        if(resultados.find(false)) {
+        if (resultados.find(false)) {
             return false
         }
         return true
@@ -44,13 +41,24 @@ class PessoaFisicaService {
     }
 
     boolean atualizaPessoaFisica(String emailOriginal, String senhaOriginal, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
-        String update = SqlUtils.UPDATE_PESSOA_FISICA + "nome = '${nome}', AND email = '${email}', AND senha = '${senha}',AND pais = '${pais}', AND estado = '${estado}', AND cep = '${cep}', AND descricao = '${descricao}', AND cpf = '${CPF}', AND sobrenome = '${sobrenome}', AND idade = ${idade} AND formacao = '${formacao}' WHERE email = '${emailOriginal}' AND senha = '${senhaOriginal}'"
-        //TODO PROJETO criar update das relações com competência
-        return sql.execute(update)
+        PessoaFisica pessoaFisica = pessoaFisicaRepository.findByEmailAndSenha(emailOriginal, senhaOriginal)
+        nome ? pessoaFisica.nome = nome : ''
+        sobrenome ? pessoaFisica.sobrenome = sobrenome : ''
+        email ? pessoaFisica.email = email : ''
+        senha ? pessoaFisica.senha = senha : ''
+        pais ? pessoaFisica.pais = pais : ''
+        estado ? pessoaFisica.estado = estado : ''
+        cep ? pessoaFisica.cep = cep : ''
+        descricao ? pessoaFisica.descricao = descricao : ''
+        CPF ? pessoaFisica.CPF = CPF : ''
+        competencias ? pessoaFisica.competencias = competencias : ''
+        idade ? pessoaFisica.idade = idade : ''
+        formacao ? pessoaFisica.formacao = formacao : ''
+        return pessoaFisicaRepository.save(pessoaFisica)
     }
 
-    boolean deletePessoaFisica(String emailOriginal, String senhaOriginal, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
-        String update = SqlUtils.DELETE_PESSOA_FISICA + "WHERE email = '${emailOriginal}' AND senha = '${senhaOriginal}'"
-        return sql.execute(update)
+    boolean deletePessoaFisica(String emailOriginal, String senhaOriginal) {
+        PessoaFisica pessoaFisica = pessoaFisicaRepository.findByEmailAndSenha(emailOriginal, senhaOriginal)
+        return pessoaFisicaRepository.deleteById(pessoaFisica.id)
     }
 }

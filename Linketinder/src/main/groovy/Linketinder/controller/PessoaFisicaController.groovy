@@ -2,15 +2,18 @@ package Linketinder.controller
 
 import Linketinder.services.PessoaFisicaService
 import Linketinder.utils.Competencia
+import Linketinder.utils.PessoaFisica
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
+import jakarta.inject.Inject
 
 @Controller("/candidato")
 class PessoaFisicaController {
 
-    PessoaFisicaService PessoaFisicaService = new PessoaFisicaService()
+    @Inject
+    PessoaFisicaService PessoaFisicaService
 
     @Get(uri = "/listall", produces = MediaType.TEXT_PLAIN)
     String listaCandidatos() {
@@ -18,8 +21,9 @@ class PessoaFisicaController {
     }
 
     @Post(uri = "/cria", produces = MediaType.TEXT_PLAIN)
-    String criaCandidato(String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade) {
-        return PessoaFisicaService.criaPessoaFisica(nome, email, pais, estado, cep, descricao, competencias, CPF, idade).toString()
+    String criaCandidato(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
+        PessoaFisica pessoaFisica = new PessoaFisica(nome, sobrenome, email, senha, pais, estado, cep, descricao, competencias, CPF, idade, formacao)
+        return PessoaFisicaService.criaPessoaFisica(pessoaFisica).toString()
     }
 
     @Post(uri = "/atualiza", produces = MediaType.TEXT_PLAIN)
