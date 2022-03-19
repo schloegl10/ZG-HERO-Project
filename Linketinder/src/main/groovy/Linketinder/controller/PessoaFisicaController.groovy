@@ -27,8 +27,8 @@ class PessoaFisicaController {
     }
 
     @Post(uri = "/atualiza", produces = MediaType.TEXT_PLAIN)
-    String atualizaCandidato(String emailOriginal, String senhaOriginal, String nome, String email, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade) {
-        return PessoaFisicaService.atualizaPessoaFisica(emailOriginal, senhaOriginal, nome, email, pais, estado, cep, descricao, competencias, CPF, idade).toString()
+    String atualizaCandidato(String emailOriginal, String senhaOriginal, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
+        return PessoaFisicaService.atualizaPessoaFisica(emailOriginal, senhaOriginal, nome, sobrenome, email, senha, pais, estado, cep, descricao, competencias, CPF, idade, formacao).toString()
     }
 
     @Post(uri = "/delete", produces = MediaType.TEXT_PLAIN)
