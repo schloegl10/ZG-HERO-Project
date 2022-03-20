@@ -13,7 +13,7 @@ class PessoaFisicaService {
     PessoaFisicaRepository pessoaFisicaRepository
 
     List<PessoaFisica> obtemPessoasFisicas() {
-        return pessoaFisicaRepository.findAll()
+        return pessoaFisicaRepository.findAll() as List<PessoaFisica>
     }
 
     boolean criaPessoaFisica(PessoaFisica pessoaFisica) {
@@ -64,7 +64,7 @@ class PessoaFisicaService {
     }
 
     List<PessoaFisica> buscaPessoaFisica(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
-        List<PessoaFisica> pessoasFisica = pessoaFisicaRepository.findAll()
+        List<PessoaFisica> pessoasFisica = pessoaFisicaRepository.findAll() as List<PessoaFisica>
         pessoasFisica = pessoasFisica.findAll {PessoaFisica pessoaFisica ->
             boolean nomeIgual = nome ? nome == pessoaFisica.nome : true
             boolean sobrenomeIgual = sobrenome ? sobrenome == pessoaFisica.sobrenome : true

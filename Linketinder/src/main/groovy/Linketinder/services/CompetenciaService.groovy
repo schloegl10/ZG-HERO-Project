@@ -9,7 +9,7 @@ class CompetenciaService {
     @Inject CompetenciaRepository competenciaRepository
 
     List<Competencia> obtemCompetencias() {
-        return competenciaRepository.findAll()
+        return competenciaRepository.findAll() as List<Competencia>
     }
 
     boolean criaCompetencias(List<Competencia> competencias) {
@@ -32,6 +32,7 @@ class CompetenciaService {
         return competenciaRepository.deleteById(competenciaBanco.id)
     }
 
+    //Buscar todas entidades de um banco para serem filtradas dentro da aplicação não é uma solução viavel para ser usada dentro de uma aplicação do mundo real, mas essa implementação facilita a criação de um filtro que possa filtrar por qualquer combinação de parametros da entidade
     List<Competencia> buscaCompetencia(String descricao, String nivel) {
         List<Competencia> competencias = competenciaRepository.findAll() as List<Competencia>
         competencias = competencias.findAll {Competencia competencia ->

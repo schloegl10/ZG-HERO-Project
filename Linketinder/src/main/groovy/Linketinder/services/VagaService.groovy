@@ -13,7 +13,7 @@ class VagaService {
 
 
     List<Vaga> obtemVagas() {
-        return vagaRepository.findAll()
+        return vagaRepository.findAll() as List<Vaga>
     }
 
     boolean criaVagas(List<Vaga> vagas) {

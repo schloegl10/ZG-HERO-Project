@@ -39,7 +39,7 @@ class PessoaJuridicaService {
     }
 
     List<PessoaJuridica> buscaPessoaJuridica(String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vagas, String CNPJ) {
-        List<PessoaJuridica> pessoasJuridica = pessoaJuridicaRepository.findAll()
+        List<PessoaJuridica> pessoasJuridica = pessoaJuridicaRepository.findAll() as List<PessoaJuridica>
         pessoasJuridica = pessoasJuridica.findAll {PessoaJuridica pessoaJuridica ->
             boolean nomeIgual = nome ? nome == pessoaJuridica.nome : true
             boolean emailIgual = email ? email == pessoaJuridica.email : true
