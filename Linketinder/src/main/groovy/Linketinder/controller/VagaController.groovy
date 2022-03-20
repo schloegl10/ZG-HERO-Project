@@ -39,5 +39,8 @@ class VagaController {
         return VagaService.deleteVaga(vaga).toString()
     }
 
-    //TODO PROJETO criar select especifico
+    @Post(uri = "/busca", produces = MediaType.TEXT_PLAIN)
+    String buscaCompetencia(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
+        return VagaService.buscaVaga(descricao, nome, estado, cidade, competencias)
+    }
 }

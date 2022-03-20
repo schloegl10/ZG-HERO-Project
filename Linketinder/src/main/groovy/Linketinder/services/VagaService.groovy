@@ -8,7 +8,7 @@ import groovy.sql.GroovyRowResult
 import jakarta.inject.Inject
 
 class VagaService {
-//TODO PROJECT implementar repository
+
     @Inject VagaRepository vagaRepository
 
 
@@ -58,5 +58,18 @@ class VagaService {
     boolean deleteVaga(Vaga vaga) {
         Vaga vagaBanco = vagaRepository.findByDescricaoAndNomeAndEstadoAndCidade(vaga.descricao, vaga.nome, vaga.estado, vaga.cidade)
         return vagaRepository.deleteById(vagaBanco.id)
+    }
+
+    List<Vaga> buscaVaga(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
+        List<Vaga> vagas = vagaRepository.findAll() as List<Vaga>
+        vagas = vagas.findAll {Vaga vaga ->
+            boolean descricaoIgual = descricao ? descricao == vaga.descricao : true
+            boolean nomeIgual = nome ? nome == vaga.nome : true
+            boolean estadoIgual = estado ? estado == vaga.estado : true
+            boolean cidadeIgual = cidade ? cidade == vaga.cidade : true
+            boolean competenciasIgual = competencias ? competencias == vaga.competencias : true
+            return (descricaoIgual && nomeIgual && estadoIgual && cidadeIgual && competenciasIgual)
+        }
+        return vagas
     }
 }

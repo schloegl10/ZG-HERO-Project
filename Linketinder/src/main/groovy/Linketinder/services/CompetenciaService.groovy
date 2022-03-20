@@ -2,12 +2,10 @@ package Linketinder.services
 
 import Linketinder.repository.CompetenciaRepository
 import Linketinder.utils.Competencia
-import Linketinder.utils.SqlUtils
-import groovy.sql.GroovyRowResult
 import jakarta.inject.Inject
 
 class CompetenciaService {
-//TODO PROJECT implementar repository
+
     @Inject CompetenciaRepository competenciaRepository
 
     List<Competencia> obtemCompetencias() {
@@ -32,5 +30,21 @@ class CompetenciaService {
     boolean deleteCompetencia(Competencia competencia) {
         Competencia competenciaBanco = competenciaRepository.findByDescricaoAndNivel(competencia.descricao, competencia.nivel)
         return competenciaRepository.deleteById(competenciaBanco.id)
+    }
+
+    List<Competencia> buscaCompetencia(String descricao, String nivel) {
+        List<Competencia> competencias = competenciaRepository.findAll() as List<Competencia>
+        competencias = competencias.findAll {Competencia competencia ->
+            boolean descricaoIgual = true
+            boolean nivelIgual = true
+            if(descricao && descricao != competencia.descricao) {
+               descricaoIgual = false
+            }
+            if(nivel && nivel != competencia.nivel) {
+                nivelIgual = false
+            }
+            return (descricaoIgual && nivelIgual)
+        }
+        return competencias
     }
 }

@@ -37,6 +37,9 @@ class PessoaJuridicaController {
         return PessoaJuridicaService.deletePessoaJuridica(emailOriginal, senhaOriginal).toString()
     }
 
-    //TODO PROJETO criar select especifico
+    @Post(uri = "/busca", produces = MediaType.TEXT_PLAIN)
+    String buscaPessoaJuridica(String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vaga, String CNPJ) {
+        return PessoaJuridicaService.buscaPessoaJuridica(nome, email, senha, pais, estado, cep, descricao, vaga, CNPJ)
+    }
     //TODO PROJETO criar método que retorna sem dados pessoais
 }

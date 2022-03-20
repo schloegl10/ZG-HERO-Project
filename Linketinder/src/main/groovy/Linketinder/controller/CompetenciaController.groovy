@@ -38,5 +38,8 @@ class CompetenciaController {
         return CompetenciaService.deleteCompetencia(competencia).toString()
     }
 
-    //TODO PROJETO criar select especifico
+    @Post(uri = "/busca", produces = MediaType.TEXT_PLAIN)
+    String buscaCompetencia(String descricao, String nivel) {
+        return CompetenciaService.buscaCompetencia(descricao, nivel)
+    }
 }

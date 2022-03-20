@@ -8,7 +8,7 @@ import groovy.sql.GroovyRowResult
 import jakarta.inject.Inject
 
 class PessoaFisicaService {
-//TODO PROJECT implementar repository
+
     @Inject
     PessoaFisicaRepository pessoaFisicaRepository
 
@@ -61,5 +61,25 @@ class PessoaFisicaService {
     boolean deletePessoaFisica(String emailOriginal, String senhaOriginal) {
         PessoaFisica pessoaFisica = pessoaFisicaRepository.findByEmailAndSenha(emailOriginal, senhaOriginal)
         return pessoaFisicaRepository.deleteById(pessoaFisica.id)
+    }
+
+    List<PessoaFisica> buscaPessoaFisica(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
+        List<PessoaFisica> pessoasFisica = pessoaFisicaRepository.findAll()
+        pessoasFisica = pessoasFisica.findAll {PessoaFisica pessoaFisica ->
+            boolean nomeIgual = nome ? nome == pessoaFisica.nome : true
+            boolean sobrenomeIgual = sobrenome ? sobrenome == pessoaFisica.sobrenome : true
+            boolean emailIgual = email ? email == pessoaFisica.email : true
+            boolean senhaIgual = senha ? senha == pessoaFisica.senha : true
+            boolean paisIgual = pais ? pais == pessoaFisica.pais : true
+            boolean estadoIgual = estado ? estado == pessoaFisica.estado : true
+            boolean cepIgual = cep ? cep == pessoaFisica.cep : true
+            boolean descricaoIgual = descricao ? descricao == pessoaFisica.descricao : true
+            boolean competenciasIgual = competencias ? competencias == pessoaFisica.competencias : true
+            boolean CPFIgual = CPF ? CPF == pessoaFisica.CPF : true
+            boolean idadeIgual = idade ? idade == pessoaFisica.idade : true
+            boolean formacaoIgual = formacao ? formacao == pessoaFisica.formacao : true
+            return (nomeIgual && sobrenomeIgual && emailIgual && senhaIgual && paisIgual && estadoIgual && cepIgual && descricaoIgual && competenciasIgual && CPFIgual && idadeIgual && formacaoIgual)
+        }
+        return pessoasFisica
     }
 }
