@@ -2,7 +2,9 @@ package Linketinder.services
 
 import Linketinder.repository.PessoaFisicaRepository
 import Linketinder.utils.Competencia
+import Linketinder.utils.Curtidas
 import Linketinder.utils.PessoaFisica
+import Linketinder.utils.PessoaJuridica
 import jakarta.inject.Inject
 
 class PessoaFisicaService {
@@ -58,5 +60,21 @@ class PessoaFisicaService {
             return (nomeIgual && sobrenomeIgual && emailIgual && senhaIgual && paisIgual && estadoIgual && cepIgual && descricaoIgual && competenciasIgual && CPFIgual && idadeIgual && formacaoIgual)
         }
         return pessoasFisica
+    }
+    
+    PessoaFisica buscaId(Long id) {
+        return pessoaFisicaRepository.findById(id) as PessoaFisica
+    }
+    
+    Map buscaIdDadosPublicos(Long id) {
+        PessoaFisica pessoaFisica = pessoaFisicaRepository.findById(id) as PessoaFisica
+        Map dadosPublicos = [
+                "pais" : pessoaFisica.pais,
+                "estado" : pessoaFisica.estado,
+                "descricao" : pessoaFisica.descricao,
+                "formacao" : pessoaFisica.formacao,
+                "competencias" : pessoaFisica.competencias
+        ]
+        return dadosPublicos
     }
 }

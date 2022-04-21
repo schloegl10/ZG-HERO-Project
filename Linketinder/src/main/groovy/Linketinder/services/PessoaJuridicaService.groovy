@@ -1,14 +1,20 @@
 package Linketinder.services
 
 import Linketinder.repository.PessoaJuridicaRepository
+import Linketinder.utils.Curtidas
+import Linketinder.utils.PessoaFisica
 import Linketinder.utils.PessoaJuridica
 import Linketinder.utils.Vaga
+import io.micronaut.http.MediaType
+import io.micronaut.http.annotation.Post
 import jakarta.inject.Inject
 
 class PessoaJuridicaService {
 
     @Inject
     PessoaJuridicaRepository pessoaJuridicaRepository
+    @Inject
+    CurtidaService curtidaService
 
     List<PessoaJuridica> obtemPessoasJuridicas() {
         return pessoaJuridicaRepository.findAll() as List<PessoaJuridica>
@@ -52,5 +58,18 @@ class PessoaJuridicaService {
             return (nomeIgual && emailIgual && senhaIgual && paisIgual && estadoIgual && cepIgual && descricaoIgual && vagasIgual && CNPJIgual)
         }
         return pessoasJuridica
+    }
+
+    PessoaJuridica buscaId(Long id) {
+        return pessoaJuridicaRepository.findById(id) as PessoaJuridica
+    }
+
+    Map buscaIdDadosPublicos(Long id) {
+        PessoaJuridica pessoaJuridica = pessoaJuridicaRepository.findById(id) as PessoaJuridica
+        Map dadosPublicos = [
+                "descricao" : pessoaJuridica.descricao,
+                "vagas" : pessoaJuridica.vagas,
+        ]
+        return dadosPublicos
     }
 }

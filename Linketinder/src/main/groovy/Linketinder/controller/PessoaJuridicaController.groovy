@@ -1,7 +1,9 @@
 package Linketinder.controller
 
+import Linketinder.services.CurtidaService
 import Linketinder.services.PessoaJuridicaService
 import Linketinder.services.VagaService
+import Linketinder.utils.Curtidas
 import Linketinder.utils.PessoaJuridica
 import Linketinder.utils.Vaga
 import io.micronaut.http.MediaType
@@ -17,6 +19,8 @@ class PessoaJuridicaController {
     PessoaJuridicaService PessoaJuridicaService
     @Inject
     VagaService vagaService
+    @Inject
+    CurtidaService curtidaService
 
     @Get(uri = "/listall", produces = MediaType.TEXT_PLAIN)
     String listaEmpresas() {
@@ -50,5 +54,20 @@ class PessoaJuridicaController {
     @Post(uri = "/busca", produces = MediaType.TEXT_PLAIN)
     String buscaPessoaJuridica(String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vaga, String CNPJ) {
         return PessoaJuridicaService.buscaPessoaJuridica(nome, email, senha, pais, estado, cep, descricao, vaga, CNPJ)
+    }
+
+    @Post(uri = "/curtir", produces = MediaType.TEXT_PLAIN)
+    String curtiCandidato(Long candidatoId, Long empresaId) {
+        return curtidaService.criarCurtida(candidatoId, empresaId, true, false)
+    }
+
+    @Post(uri = "/obtemdadosempresa", produces = MediaType.TEXT_PLAIN)
+    String obtemDadosEmpresa(Long idCandidato, Long idEmpresa) {
+        Curtidas curtida = curtidaService.obtemCurtida(idCandidato, idEmpresa)
+        if(curtida) {
+            return pessoaJuridicaService.buscaId(idCandidato)
+        } else {
+            return pessoaJuridicaService.buscaIdDadosPublicos(idCandidato)
+        }
     }
 }
