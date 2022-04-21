@@ -25,6 +25,8 @@ class PessoaFisica {
             joinColumns = @JoinColumn(name = "pessoafisicaid"),
             inverseJoinColumns = @JoinColumn(name = "competenciaid"))
     List<Competencia> competencias
+    @OneToMany(mappedBy = "candidato")
+    List<Curtidas> curtidas
 
     PessoaFisica(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
         this.nome = nome

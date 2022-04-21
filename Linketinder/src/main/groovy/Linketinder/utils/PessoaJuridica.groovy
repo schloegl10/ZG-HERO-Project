@@ -11,6 +11,8 @@ class PessoaJuridica {
     String CNPJ
     @OneToMany(mappedBy = "empresa")
     List<Vaga> vagas
+    @OneToMany(mappedBy = "empresa")
+    List<Curtidas> curtidas
     String nome
     String email
     String senha
