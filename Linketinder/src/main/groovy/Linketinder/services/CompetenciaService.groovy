@@ -6,7 +6,8 @@ import jakarta.inject.Inject
 
 class CompetenciaService {
 
-    @Inject CompetenciaRepository competenciaRepository
+    @Inject
+    CompetenciaRepository competenciaRepository
 
     List<Competencia> obtemCompetencias() {
         return competenciaRepository.findAll() as List<Competencia>

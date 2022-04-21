@@ -1,7 +1,7 @@
 package Linketinder.controller
 
 import Linketinder.services.PessoaJuridicaService
-import Linketinder.utils.Competencia
+import Linketinder.services.VagaService
 import Linketinder.utils.PessoaJuridica
 import Linketinder.utils.Vaga
 import io.micronaut.http.MediaType
@@ -9,7 +9,6 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import jakarta.inject.Inject
-import org.codehaus.groovy.util.LongArrayIterable
 
 @Controller("/empresa")
 class PessoaJuridicaController {
@@ -27,7 +26,7 @@ class PessoaJuridicaController {
     @Post(uri = "/cria", produces = MediaType.TEXT_PLAIN)
     String criaEmpresa(String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Long> idVagas, String CNPJ) {
         List<Vaga> vaga = []
-        for(Long id in idVagas) {
+        for (Long id in idVagas) {
             vaga.add(vagaService.buscaVaga(id))
         }
         PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, email, senha, pais, estado, cep, descricao, vaga, CNPJ)
@@ -37,7 +36,7 @@ class PessoaJuridicaController {
     @Post(uri = "/atualiza", produces = MediaType.TEXT_PLAIN)
     String atualizaEmpresa(String emailOriginal, String senhaOriginal, String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Long> idVagas, String CNPJ) {
         List<Vaga> vaga = []
-        for(Long id in idVagas) {
+        for (Long id in idVagas) {
             vaga.add(vagaService.buscaVaga(id))
         }
         return PessoaJuridicaService.atualizaPessoaJuridica(emailOriginal, senhaOriginal, nome, senha, email, pais, estado, cep, descricao, vaga, CNPJ).toString()

@@ -6,7 +6,7 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(name="competencia")
+@Table(name = "competencia")
 class Competencia {
     @Id
     @GeneratedValue
@@ -19,7 +19,7 @@ class Competencia {
         this.nivel = nivel
     }
 
-    Competencia(){}
+    Competencia() {}
 
     @Override
     public String toString() {

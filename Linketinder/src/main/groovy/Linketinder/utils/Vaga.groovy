@@ -1,17 +1,9 @@
 package Linketinder.utils
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.JoinTable
-import javax.persistence.ManyToMany
-import javax.persistence.ManyToOne
-import javax.persistence.FetchType
-import javax.persistence.JoinColumn
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
-@Table(name="vaga")
+@Table(name = "vaga")
 class Vaga {
     @Id
     @GeneratedValue
@@ -23,11 +15,11 @@ class Vaga {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "relacaocompetenciavaga",
-            vagaid = @JoinColumn(name = "vagaid"),
-            competenciaid = @JoinColumn(name = "competenciaid"))
+            joinColumns = @JoinColumn(name = "vagaid"),
+            inverseJoinColumns = @JoinColumn(name = "competenciaid"))
     List<Competencia> competencias
     @ManyToOne
-    @JoinColumn(name="pessoajuridicaid", nullable=false)
+    @JoinColumn(name = "pessoajuridicaid", nullable = false)
     private PessoaJuridica empresa
 
     Vaga(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
@@ -38,7 +30,7 @@ class Vaga {
         this.competencias = competencias
     }
 
-    Vaga(){}
+    Vaga() {}
 
 
     @Override

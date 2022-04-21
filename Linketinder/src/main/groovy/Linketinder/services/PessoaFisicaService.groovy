@@ -3,8 +3,6 @@ package Linketinder.services
 import Linketinder.repository.PessoaFisicaRepository
 import Linketinder.utils.Competencia
 import Linketinder.utils.PessoaFisica
-import Linketinder.utils.SqlUtils
-import groovy.sql.GroovyRowResult
 import jakarta.inject.Inject
 
 class PessoaFisicaService {
@@ -44,7 +42,7 @@ class PessoaFisicaService {
 
     List<PessoaFisica> buscaPessoaFisica(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
         List<PessoaFisica> pessoasFisica = pessoaFisicaRepository.findAll() as List<PessoaFisica>
-        pessoasFisica = pessoasFisica.findAll {PessoaFisica pessoaFisica ->
+        pessoasFisica = pessoasFisica.findAll { PessoaFisica pessoaFisica ->
             boolean nomeIgual = nome ? nome == pessoaFisica.nome : true
             boolean sobrenomeIgual = sobrenome ? sobrenome == pessoaFisica.sobrenome : true
             boolean emailIgual = email ? email == pessoaFisica.email : true

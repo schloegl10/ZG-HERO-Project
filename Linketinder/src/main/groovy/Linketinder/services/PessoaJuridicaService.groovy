@@ -1,15 +1,14 @@
 package Linketinder.services
 
 import Linketinder.repository.PessoaJuridicaRepository
-import Linketinder.utils.Competencia
-import Linketinder.utils.PessoaFisica
 import Linketinder.utils.PessoaJuridica
 import Linketinder.utils.Vaga
 import jakarta.inject.Inject
 
 class PessoaJuridicaService {
 
-    @Inject PessoaJuridicaRepository pessoaJuridicaRepository
+    @Inject
+    PessoaJuridicaRepository pessoaJuridicaRepository
 
     List<PessoaJuridica> obtemPessoasJuridicas() {
         return pessoaJuridicaRepository.findAll() as List<PessoaJuridica>
@@ -40,7 +39,7 @@ class PessoaJuridicaService {
 
     List<PessoaJuridica> buscaPessoaJuridica(String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vagas, String CNPJ) {
         List<PessoaJuridica> pessoasJuridica = pessoaJuridicaRepository.findAll() as List<PessoaJuridica>
-        pessoasJuridica = pessoasJuridica.findAll {PessoaJuridica pessoaJuridica ->
+        pessoasJuridica = pessoasJuridica.findAll { PessoaJuridica pessoaJuridica ->
             boolean nomeIgual = nome ? nome == pessoaJuridica.nome : true
             boolean emailIgual = email ? email == pessoaJuridica.email : true
             boolean senhaIgual = senha ? senha == pessoaJuridica.senha : true

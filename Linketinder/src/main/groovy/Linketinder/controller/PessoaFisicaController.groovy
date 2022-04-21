@@ -1,5 +1,6 @@
 package Linketinder.controller
 
+import Linketinder.services.CompetenciaService
 import Linketinder.services.PessoaFisicaService
 import Linketinder.utils.Competencia
 import Linketinder.utils.PessoaFisica
@@ -25,7 +26,7 @@ class PessoaFisicaController {
     @Post(uri = "/cria", produces = MediaType.TEXT_PLAIN)
     String criaCandidato(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Long> idsCompetencias, String CPF, int idade, String formacao) {
         List<Competencia> competencias = []
-        for(Long id in idsCompetencias) {
+        for (Long id in idsCompetencias) {
             competencias.add(competenciaService.buscaCompetencia(id))
         }
         PessoaFisica pessoaFisica = new PessoaFisica(nome, sobrenome, email, senha, pais, estado, cep, descricao, competencias, CPF, idade, formacao)
@@ -35,7 +36,7 @@ class PessoaFisicaController {
     @Post(uri = "/atualiza", produces = MediaType.TEXT_PLAIN)
     String atualizaCandidato(String emailOriginal, String senhaOriginal, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Long> idsCompetencias, String CPF, int idade, String formacao) {
         List<Competencia> competencias = []
-        for(Long id in idsCompetencias) {
+        for (Long id in idsCompetencias) {
             competencias.add(competenciaService.buscaCompetencia(id))
         }
         return pessoaFisicaService.atualizaPessoaFisica(emailOriginal, senhaOriginal, nome, sobrenome, email, senha, pais, estado, cep, descricao, competencias, CPF, idade, formacao).toString()

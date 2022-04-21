@@ -2,14 +2,13 @@ package Linketinder.services
 
 import Linketinder.repository.VagaRepository
 import Linketinder.utils.Competencia
-import Linketinder.utils.SqlUtils
 import Linketinder.utils.Vaga
-import groovy.sql.GroovyRowResult
 import jakarta.inject.Inject
 
 class VagaService {
 
-    @Inject VagaRepository vagaRepository
+    @Inject
+    VagaRepository vagaRepository
 
 
     List<Vaga> obtemVagas() {
@@ -41,7 +40,7 @@ class VagaService {
 
     List<Vaga> buscaVaga(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
         List<Vaga> vagas = vagaRepository.findAll() as List<Vaga>
-        vagas = vagas.findAll {Vaga vaga ->
+        vagas = vagas.findAll { Vaga vaga ->
             boolean descricaoIgual = descricao ? descricao == vaga.descricao : true
             boolean nomeIgual = nome ? nome == vaga.nome : true
             boolean estadoIgual = estado ? estado == vaga.estado : true

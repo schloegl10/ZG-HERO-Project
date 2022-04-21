@@ -1,16 +1,10 @@
 package Linketinder.utils
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.JoinTable
-import javax.persistence.ManyToMany
-import javax.persistence.FetchType
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
-@Table(name="pessoafisica")
-class PessoaFisica extends Pessoa {
+@Table(name = "pessoafisica")
+class PessoaFisica {
     @Id
     @GeneratedValue
     Long id
@@ -18,15 +12,28 @@ class PessoaFisica extends Pessoa {
     String sobrenome
     String formacao
     int idade
+    String nome
+    String email
+    String senha
+    String pais
+    String estado
+    String cep
+    String descricao
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "relacaocompetenciapessoa",
-            vagaid = @JoinColumn(name = "pessoafisicaid"),
-            competenciaid = @JoinColumn(name = "competenciaid"))
+            joinColumns = @JoinColumn(name = "pessoafisicaid"),
+            inverseJoinColumns = @JoinColumn(name = "competenciaid"))
     List<Competencia> competencias
 
     PessoaFisica(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
-        super(nome,email,senha,pais, estado, cep, descricao)
+        this.nome = nome
+        this.email = email
+        this.senha = senha
+        this.pais = pais
+        this.estado = estado
+        this.cep = cep
+        this.descricao = descricao
         this.sobrenome = sobrenome
         this.CPF = CPF
         this.formacao = formacao
@@ -34,7 +41,7 @@ class PessoaFisica extends Pessoa {
         this.competencias = competencias
     }
 
-    PessoaFisica(){}
+    PessoaFisica() {}
 
     @Override
     public String toString() {
