@@ -13,34 +13,34 @@ import jakarta.inject.Inject
 class VagaController {
 
     @Inject
-    VagaService VagaService
+    VagaService vagaService
 
     @Get(uri = "/listall", produces = MediaType.TEXT_PLAIN)
     String obtemVagas() {
-        return VagaService.obtemVagas().toString()
+        return vagaService.obtemVagas().toString()
     }
 
     @Post(uri = "/cria", produces = MediaType.TEXT_PLAIN)
     String criaVaga(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
         Vaga vaga = new Vaga(descricao, nome, estado, cidade, competencias)
-        return VagaService.criaVaga(vaga)
+        return vagaService.criaVaga(vaga)
     }
 
     @Post(uri = "/atualiza", produces = MediaType.TEXT_PLAIN)
     String atualizaVaga(String descricaoOriginal, String nomeOriginal, String estadoOriginal, String cidadeOriginal, List<Competencia> competenciasOriginal, String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
         Vaga vaga = new Vaga(descricao, nome, estado, cidade, competencias)
         Vaga vagaOriginal = new Vaga(descricaoOriginal, nomeOriginal, estadoOriginal, cidadeOriginal, competenciasOriginal)
-        return VagaService.atualizaVaga(vaga, vagaOriginal).toString()
+        return vagaService.atualizaVaga(vaga, vagaOriginal).toString()
     }
 
     @Post(uri = "/delete", produces = MediaType.TEXT_PLAIN)
     String deleteVaga(String descricao, String nome, String estado, String cidade) {
         Vaga vaga = new Vaga(descricao, nome, estado, cidade, [])
-        return VagaService.deleteVaga(vaga).toString()
+        return vagaService.deleteVaga(vaga).toString()
     }
 
     @Post(uri = "/busca", produces = MediaType.TEXT_PLAIN)
     String buscaCompetencia(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
-        return VagaService.buscaVaga(descricao, nome, estado, cidade, competencias)
+        return vagaService.buscaVaga(descricao, nome, estado, cidade, competencias)
     }
 }

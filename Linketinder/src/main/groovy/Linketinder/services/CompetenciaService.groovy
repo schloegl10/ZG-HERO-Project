@@ -32,20 +32,13 @@ class CompetenciaService {
         return competenciaRepository.deleteById(competenciaBanco.id)
     }
 
-    //Buscar todas entidades de um banco para serem filtradas dentro da aplicação não é uma solução viavel para ser usada dentro de uma aplicação do mundo real, mas essa implementação facilita a criação de um filtro que possa filtrar por qualquer combinação de parametros da entidade
     List<Competencia> buscaCompetencia(String descricao, String nivel) {
-        List<Competencia> competencias = competenciaRepository.findAll() as List<Competencia>
-        competencias = competencias.findAll {Competencia competencia ->
-            boolean descricaoIgual = true
-            boolean nivelIgual = true
-            if(descricao && descricao != competencia.descricao) {
-               descricaoIgual = false
-            }
-            if(nivel && nivel != competencia.nivel) {
-                nivelIgual = false
-            }
-            return (descricaoIgual && nivelIgual)
-        }
+        List<Competencia> competencias = competenciaRepository.findByDescricaoAndNivel(descricao, nivel)
+        return competencias
+    }
+
+    Competencia buscaCompetencia(Long id) {
+        Competencia competencias = competenciaRepository.findById(id)
         return competencias
     }
 }

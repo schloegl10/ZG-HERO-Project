@@ -3,8 +3,13 @@ package Linketinder.utils
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.JoinTable
+import javax.persistence.ManyToMany
+import javax.persistence.FetchType
+import javax.persistence.Table
 
 @Entity
+@Table(name="pessoafisica")
 class PessoaFisica extends Pessoa {
     @Id
     @GeneratedValue
@@ -13,6 +18,11 @@ class PessoaFisica extends Pessoa {
     String sobrenome
     String formacao
     int idade
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "relacaocompetenciapessoa",
+            vagaid = @JoinColumn(name = "pessoafisicaid"),
+            competenciaid = @JoinColumn(name = "competenciaid"))
     List<Competencia> competencias
 
     PessoaFisica(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {

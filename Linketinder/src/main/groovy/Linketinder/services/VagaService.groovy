@@ -24,34 +24,13 @@ class VagaService {
         return vagaRepository.save(vaga)
     }
 
-    //TODO PROJETO Rever isso
-    boolean criaRelacoesVagaCompetencia(Vaga vagas) {
-        List<Boolean> resultados = []
-        for(Competencia competencia in vagas.competencias) {
-            resultados.add(criaRelacaoVagaCompetencia(vaga, competencia))
-        }
-        if(resultados.find(false)) {
-            return false
-        }
-        return true
-    }
-
-    boolean criaRelacaoVagaCompetencia(Vaga vaga, Competencia competencia) {
-        String selectVaga = SqlUtils.SELECT_VAGA + " where nome = '${vaga.nome}' and descricao = '${vaga.descricao}' and estado = '${vaga.estado}' and cidade = '${vaga.cidade}'"
-        String selectCompetencia = SqlUtils.SELECT_COMPETENCIA + " where descricao = '${competencia.descricao}' AND nivel = '${competencia.nivel}'"
-        List<GroovyRowResult> competenciaGRR = sql.rows(selectCompetencia)
-        List<GroovyRowResult> vagaGRR = sql.rows(selectVaga)
-        String insert = SqlUtils.INSERT_RELACAO_COMPETENCIA_VAGA + "(${competenciaGRR.id}, ${vagaGRR.id})"
-        return sql.execute(insert)
-    }
-
-    //TODO PROJETO criar update das relações com competência
     boolean atualizaVaga(Vaga vaga, Vaga vagaOriginal) {
         Vaga vagaOriginalBanco = vagaRepository.findByDescricaoAndNomeAndEstadoAndCidade(vagaOriginal.descricao, vagaOriginal.nome, vagaOriginal.estado, vagaOriginal.cidade)
         vagaOriginalBanco.descricao = vaga.descricao
         vagaOriginalBanco.nome = vaga.nome
         vagaOriginalBanco.estado = vaga.estado
         vagaOriginalBanco.cidade = vaga.cidade
+        vagaOriginalBanco.competencias = vaga.competencias
         return vagaRepository.save(vagaOriginalBanco)
     }
 
@@ -70,6 +49,11 @@ class VagaService {
             boolean competenciasIgual = competencias ? competencias == vaga.competencias : true
             return (descricaoIgual && nomeIgual && estadoIgual && cidadeIgual && competenciasIgual)
         }
+        return vagas
+    }
+
+    Vaga buscaVaga(Long id) {
+        Vaga vagas = vagaRepository.findById(id)
         return vagas
     }
 }

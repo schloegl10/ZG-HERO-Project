@@ -18,7 +18,7 @@ class PessoaJuridicaService {
     boolean criaPessoaJuridica(PessoaJuridica pessoaJuridica) {
         return pessoaJuridicaRepository.save(pessoaJuridica)
     }
-//TODO PROJETO criar update das relações com vagas
+
     boolean atualizaPessoaJuridica(String emailOriginal, String senhaOriginal, String nome, String email, String senha, String pais, String estado, String cep, String descricao, List<Vaga> vagas, String CNPJ) {
         PessoaJuridica pessoaJuridica = pessoaJuridicaRepository.findByEmailAndSenha(emailOriginal, senhaOriginal)
         nome ? pessoaJuridica.nome = nome : ''
