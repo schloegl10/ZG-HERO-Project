@@ -20,8 +20,8 @@ class PessoaFisicaService {
         return pessoaFisicaRepository.save(pessoaFisica)
     }
 
-    boolean atualizaPessoaFisica(String emailOriginal, String senhaOriginal, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
-        PessoaFisica pessoaFisica = pessoaFisicaRepository.findByEmailAndSenha(emailOriginal, senhaOriginal)
+    boolean atualizaPessoaFisica(Long id, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {
+        PessoaFisica pessoaFisica = pessoaFisicaRepository.findById(id).get()
         nome ? pessoaFisica.nome = nome : ''
         sobrenome ? pessoaFisica.sobrenome = sobrenome : ''
         email ? pessoaFisica.email = email : ''
@@ -37,9 +37,13 @@ class PessoaFisicaService {
         return pessoaFisicaRepository.save(pessoaFisica)
     }
 
-    boolean deletePessoaFisica(String emailOriginal, String senhaOriginal) {
-        PessoaFisica pessoaFisica = pessoaFisicaRepository.findByEmailAndSenha(emailOriginal, senhaOriginal)
-        return pessoaFisicaRepository.deleteById(pessoaFisica.id)
+    boolean deletePessoaFisica(Long id) {
+        try {
+            pessoaFisicaRepository.deleteById(id)
+            return true
+        } catch (Exception e) {
+            return false
+        }
     }
 
     List<PessoaFisica> buscaPessoaFisica(String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Competencia> competencias, String CPF, int idade, String formacao) {

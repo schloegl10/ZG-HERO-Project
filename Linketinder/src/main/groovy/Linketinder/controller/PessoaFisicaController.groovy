@@ -38,17 +38,17 @@ class PessoaFisicaController {
     }
 
     @Post(uri = "/atualiza", produces = MediaType.TEXT_PLAIN)
-    String atualizaCandidato(String emailOriginal, String senhaOriginal, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Long> idsCompetencias, String CPF, int idade, String formacao) {
+    String atualizaCandidato(Long idPessoa, String nome, String sobrenome, String email, String senha, String pais, String estado, String cep, String descricao, List<Long> idsCompetencias, String CPF, int idade, String formacao) {
         List<Competencia> competencias = []
         for (Long id in idsCompetencias) {
             competencias.add(competenciaService.buscaCompetencia(id))
         }
-        return pessoaFisicaService.atualizaPessoaFisica(emailOriginal, senhaOriginal, nome, sobrenome, email, senha, pais, estado, cep, descricao, competencias, CPF, idade, formacao).toString()
+        return pessoaFisicaService.atualizaPessoaFisica(idPessoa, nome, sobrenome, email, senha, pais, estado, cep, descricao, competencias, CPF, idade, formacao).toString()
     }
 
     @Post(uri = "/delete", produces = MediaType.TEXT_PLAIN)
-    String deleteCandidato(String emailOriginal, String senhaOriginal) {
-        return pessoaFisicaService.deletePessoaFisica(emailOriginal, senhaOriginal).toString()
+    String deleteCandidato(Long id) {
+        return pessoaFisicaService.deletePessoaFisica(id)
     }
 
     @Post(uri = "/busca", produces = MediaType.TEXT_PLAIN)
