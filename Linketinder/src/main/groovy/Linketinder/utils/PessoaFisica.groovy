@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "pessoafisica")
 class PessoaFisica {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id
     String CPF
     String sobrenome

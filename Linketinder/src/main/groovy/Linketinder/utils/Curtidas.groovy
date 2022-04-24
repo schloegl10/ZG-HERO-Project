@@ -2,6 +2,7 @@ package Linketinder.utils
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
@@ -11,7 +12,7 @@ import javax.persistence.Table
 @Table(name = "curtida")
 class Curtidas {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id
     Boolean pessoafisicacurtiu
     Boolean pessoajuridicacurtiu

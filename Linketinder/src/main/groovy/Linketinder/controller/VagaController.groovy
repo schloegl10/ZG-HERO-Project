@@ -21,26 +21,27 @@ class VagaController {
     }
 
     @Post(uri = "/cria", produces = MediaType.TEXT_PLAIN)
-    String criaVaga(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
-        Vaga vaga = new Vaga(descricao, nome, estado, cidade, competencias)
-        return vagaService.criaVaga(vaga)
+    String criaVaga(String descricao, String nome, String estado, String cidade, List<Long> idsCompetencias, Long empresaId) {
+        return vagaService.criaVaga(descricao, nome, estado, cidade, idsCompetencias, empresaId)
     }
 
     @Post(uri = "/atualiza", produces = MediaType.TEXT_PLAIN)
-    String atualizaVaga(String descricaoOriginal, String nomeOriginal, String estadoOriginal, String cidadeOriginal, List<Competencia> competenciasOriginal, String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
-        Vaga vaga = new Vaga(descricao, nome, estado, cidade, competencias)
-        Vaga vagaOriginal = new Vaga(descricaoOriginal, nomeOriginal, estadoOriginal, cidadeOriginal, competenciasOriginal)
-        return vagaService.atualizaVaga(vaga, vagaOriginal).toString()
+    String atualizaVaga(Long idVaga, String descricao, String nome, String estado, String cidade, List<Long> idsCompetencias) {
+        return vagaService.atualizaVaga(idVaga, descricao, nome, estado, cidade, idsCompetencias).toString()
     }
 
     @Post(uri = "/delete", produces = MediaType.TEXT_PLAIN)
-    String deleteVaga(String descricao, String nome, String estado, String cidade) {
-        Vaga vaga = new Vaga(descricao, nome, estado, cidade, [])
-        return vagaService.deleteVaga(vaga).toString()
+    String deleteVaga(Long vagaId) {
+        try {
+            vagaService.deleteVaga(vagaId).toString()
+            return true
+        } catch (Exception e) {
+            return false
+        }
     }
 
     @Post(uri = "/busca", produces = MediaType.TEXT_PLAIN)
-    String buscaCompetencia(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
-        return vagaService.buscaVaga(descricao, nome, estado, cidade, competencias)
+    String buscaVaga(Long id) {
+        return vagaService.buscaVaga(id)
     }
 }

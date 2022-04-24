@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "pessoajuridica")
 class PessoaJuridica {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id
     String CNPJ
     @OneToMany(mappedBy = "empresa")

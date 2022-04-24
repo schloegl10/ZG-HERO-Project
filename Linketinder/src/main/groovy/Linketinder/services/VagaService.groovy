@@ -2,6 +2,7 @@ package Linketinder.services
 
 import Linketinder.repository.VagaRepository
 import Linketinder.utils.Competencia
+import Linketinder.utils.PessoaJuridica
 import Linketinder.utils.Vaga
 import jakarta.inject.Inject
 
@@ -9,7 +10,10 @@ class VagaService {
 
     @Inject
     VagaRepository vagaRepository
-
+    @Inject
+    PessoaJuridicaService pessoaJuridicaService
+    @Inject
+    CompetenciaService competenciaService
 
     List<Vaga> obtemVagas() {
         return vagaRepository.findAll() as List<Vaga>
@@ -19,23 +23,32 @@ class VagaService {
         return vagaRepository.saveAll(vagas)
     }
 
-    boolean criaVaga(Vaga vaga) {
+    boolean criaVaga(String descricao, String nome, String estado, String cidade, List<Long> idsCompetencias, Long empresaId) {
+        List<Competencia> competencias = []
+        for(Long id in idsCompetencias) {
+            competencias.add(competenciaService.buscaCompetencia(id))
+        }
+        PessoaJuridica empresa = pessoaJuridicaService.buscaId(empresaId)
+        Vaga vaga = new Vaga(descricao, nome, estado, cidade, competencias, empresa)
         return vagaRepository.save(vaga)
     }
 
-    boolean atualizaVaga(Vaga vaga, Vaga vagaOriginal) {
-        Vaga vagaOriginalBanco = vagaRepository.findByDescricaoAndNomeAndEstadoAndCidade(vagaOriginal.descricao, vagaOriginal.nome, vagaOriginal.estado, vagaOriginal.cidade)
-        vagaOriginalBanco.descricao = vaga.descricao
-        vagaOriginalBanco.nome = vaga.nome
-        vagaOriginalBanco.estado = vaga.estado
-        vagaOriginalBanco.cidade = vaga.cidade
-        vagaOriginalBanco.competencias = vaga.competencias
+    boolean atualizaVaga(Long idVaga, String descricao, String nome, String estado, String cidade, List<Long> idsCompetencias) {
+        List<Competencia> competencias = []
+        for(Long id in idsCompetencias) {
+            competencias.add(competenciaService.buscaCompetencia(id))
+        }
+        Vaga vagaOriginalBanco = vagaRepository.findById(idVaga).get()
+        vagaOriginalBanco.descricao = descricao
+        vagaOriginalBanco.nome = nome
+        vagaOriginalBanco.estado = estado
+        vagaOriginalBanco.cidade = cidade
+        vagaOriginalBanco.competencias = competencias
         return vagaRepository.save(vagaOriginalBanco)
     }
 
-    boolean deleteVaga(Vaga vaga) {
-        Vaga vagaBanco = vagaRepository.findByDescricaoAndNomeAndEstadoAndCidade(vaga.descricao, vaga.nome, vaga.estado, vaga.cidade)
-        return vagaRepository.deleteById(vagaBanco.id)
+    boolean deleteVaga(Long vagaId) {
+        return vagaRepository.deleteById(vagaId)
     }
 
     List<Vaga> buscaVaga(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
@@ -52,7 +65,7 @@ class VagaService {
     }
 
     Vaga buscaVaga(Long id) {
-        Vaga vagas = vagaRepository.findById(id)
+        Vaga vagas = vagaRepository.findById(id).get()
         return vagas
     }
 }

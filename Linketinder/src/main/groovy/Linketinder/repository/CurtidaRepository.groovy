@@ -8,5 +8,5 @@ import io.micronaut.data.repository.CrudRepository
 @Repository
 interface CurtidaRepository extends CrudRepository<Curtidas, Long> {
     @Executable
-    Curtidas find(String descricao)
+    Curtidas find(Long id)
 }

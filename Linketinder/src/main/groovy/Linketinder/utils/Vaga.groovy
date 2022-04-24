@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "vaga")
 class Vaga {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id
     String descricao
     String nome
@@ -20,14 +20,15 @@ class Vaga {
     List<Competencia> competencias
     @ManyToOne
     @JoinColumn(name = "pessoajuridicaid", nullable = false)
-    private PessoaJuridica empresa
+    PessoaJuridica empresa
 
-    Vaga(String descricao, String nome, String estado, String cidade, List<Competencia> competencias) {
+    Vaga(String descricao, String nome, String estado, String cidade, List<Competencia> competencias, PessoaJuridica empresa) {
         this.descricao = descricao
         this.nome = nome
         this.estado = estado
         this.cidade = cidade
         this.competencias = competencias
+        this.empresa = empresa
     }
 
     Vaga() {}
@@ -35,9 +36,13 @@ class Vaga {
 
     @Override
     public String toString() {
-        return "Competencia{" +
+        return "Vaga{" +
                 "descricao='" + descricao + '\'' +
-                ", nivel='" + nivel + '\'' +
+                ", nome='" + nome + '\'' +
+                ", estado='" + estado + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", comptencias='" + competencias + '\'' +
+                ", empresa='" + empresa.nome + '\'' +
                 '}';
     }
 }
