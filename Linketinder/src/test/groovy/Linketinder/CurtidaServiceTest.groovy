@@ -1,18 +1,13 @@
 package Linketinder
 
-import Linketinder.controller.VagaController
+
 import Linketinder.repository.CurtidaRepository
-import Linketinder.repository.VagaRepository
-import Linketinder.services.CompetenciaService
 import Linketinder.services.CurtidaService
 import Linketinder.services.PessoaFisicaService
 import Linketinder.services.PessoaJuridicaService
-import Linketinder.services.VagaService
-import Linketinder.utils.Competencia
 import Linketinder.utils.Curtidas
 import Linketinder.utils.PessoaFisica
 import Linketinder.utils.PessoaJuridica
-import Linketinder.utils.Vaga
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Specification
 

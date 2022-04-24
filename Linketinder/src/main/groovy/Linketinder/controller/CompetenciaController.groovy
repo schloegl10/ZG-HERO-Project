@@ -26,20 +26,17 @@ class CompetenciaController {
     }
 
     @Post(uri = "/atualiza", produces = MediaType.TEXT_PLAIN)
-    String atualizaCompetencia(String descricaoOriginal, String nivelOriginal, String descricao, String nivel) {
-        Competencia competencia = new Competencia(descricao, nivel)
-        Competencia competenciaOriginal = new Competencia(descricaoOriginal, nivelOriginal)
-        return CompetenciaService.atualizaCompetencia(competencia, competenciaOriginal).toString()
+    String atualizaCompetencia(Long id, String descricao, String nivel) {
+        return CompetenciaService.atualizaCompetencia(id, descricao, nivel)
     }
 
     @Post(uri = "/delete", produces = MediaType.TEXT_PLAIN)
-    String deleteCompetencia(String descricao, String nivel) {
-        Competencia competencia = new Competencia(descricao, nivel)
-        return CompetenciaService.deleteCompetencia(competencia).toString()
+    String deleteCompetencia(Long id) {
+        return CompetenciaService.deleteCompetencia(id)
     }
 
     @Post(uri = "/busca", produces = MediaType.TEXT_PLAIN)
-    String buscaCompetencia(String descricao, String nivel) {
-        return CompetenciaService.buscaCompetencia(descricao, nivel)
+    String buscaCompetencia(Long id) {
+        return CompetenciaService.buscaCompetencia(id)
     }
 }

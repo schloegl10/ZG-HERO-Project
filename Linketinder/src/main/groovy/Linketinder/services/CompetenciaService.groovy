@@ -21,16 +21,20 @@ class CompetenciaService {
         return competenciaRepository.save(competencia)
     }
 
-    boolean atualizaCompetencia(Competencia competencia, Competencia competenciaOriginal) {
-        Competencia competenciaOriginalBanco = competenciaRepository.findByDescricaoAndNivel(competenciaOriginal.descricao, competenciaOriginal.nivel)
-        competenciaOriginalBanco.descricao = competencia.descricao
-        competenciaOriginalBanco.nivel = competencia.nivel
+    boolean atualizaCompetencia(Long id, String descricao, String nivel) {
+        Competencia competenciaOriginalBanco = competenciaRepository.findById(id).get()
+        competenciaOriginalBanco.descricao = descricao
+        competenciaOriginalBanco.nivel = nivel
         return competenciaRepository.save(competenciaOriginalBanco)
     }
 
-    boolean deleteCompetencia(Competencia competencia) {
-        Competencia competenciaBanco = competenciaRepository.findByDescricaoAndNivel(competencia.descricao, competencia.nivel)
-        return competenciaRepository.deleteById(competenciaBanco.id)
+    boolean deleteCompetencia(Long id) {
+        try {
+            competenciaRepository.deleteById(id)
+            return true
+        } catch (Exception e) {
+            return false
+        }
     }
 
     List<Competencia> buscaCompetencia(String descricao, String nivel) {
@@ -39,7 +43,7 @@ class CompetenciaService {
     }
 
     Competencia buscaCompetencia(Long id) {
-        Competencia competencias = competenciaRepository.findById(id)
+        Competencia competencias = competenciaRepository.findById(id).get()
         return competencias
     }
 }
