@@ -35,8 +35,10 @@ class Curtidas {
     @Override
     public String toString() {
         return "Competencia{" +
-                "descricao='" + descricao + '\'' +
-                ", nivel='" + nivel + '\'' +
+                "pessoafisicacurtiu='" + pessoafisicacurtiu + '\'' +
+                "pessoajuridicacurtiu='" + pessoajuridicacurtiu + '\'' +
+                "candidato='" + candidato.nome + '\'' +
+                "empresa='" + empresa.nome + '\'' +
                 '}';
     }
 }
